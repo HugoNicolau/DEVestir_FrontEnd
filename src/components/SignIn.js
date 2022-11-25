@@ -10,7 +10,7 @@ export default function SignIn(){
     const [emailValue, setEmailValue] = useState("");
     const [passwordValue, setPasswordValue] = useState("");
     const navigate = useNavigate();
-    const { setToken } = useContext(TokenContext);
+    const { setToken, setUserName } = useContext(TokenContext);
 
 
     function trySignUp(e){
@@ -26,7 +26,8 @@ export default function SignIn(){
         const promise = axios.post(URL, body)
         promise.then((res) => {
             console.log(res.data)
-            setToken(res.data.token)
+            setToken(res.data.token);
+            setUserName(res.data.name);
             navigate("/");
         })
         promise.catch((err) => {
