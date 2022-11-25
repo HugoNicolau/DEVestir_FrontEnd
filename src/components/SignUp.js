@@ -10,6 +10,15 @@ export default function SignUp(){
 
     function trySignUp(e){
         e.preventDefault();
+        if(registerPassword !== confirmPassword){
+            alert("As senhas não são iguais!")
+            return;
+        }
+        const body = {
+            name: registerName,
+            email: registerEmail,
+            password: registerPassword
+        };
 
     }
 
