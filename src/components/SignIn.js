@@ -1,15 +1,38 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
+import { useContext } from "react";
+import { TokenContext } from "./TokenContext";
 
 export default function SignIn(){
-    const [registerName, setRegisterName] = useState("");
-    const [registerEmail, setRegisterEmail] = useState("");
-    const [registerPassword, setRegisterPassword] = useState("");
-   
+    const [nameValue, setNameValue] = useState("");
+    const [emailValue, setEmailValue] = useState("");
+    const [passwordValue, setPasswordValue] = useState("");
+    const navigate = useNavigate();
+    const { setToken } = useContext(TokenContext);
+
 
     function trySignUp(e){
         e.preventDefault();
+        const body = {
+            name:nameValue,
+            email: emailValue,
+            password: passwordValue,
+        }
+
+        const URL = "http://localhost:5000/sign-in";
+
+        const promise = axios.post(URL, body)
+        promise.then((res) => {
+            console.log(res.data)
+            setToken(res.data.token)
+            navigate("/");
+        })
+        promise.catch((err) => {
+            console.log(err.response.data)
+            alert("Ocorreu um erro, tente novamente!");
+        })
 
     }
 
@@ -23,16 +46,16 @@ export default function SignIn(){
             <input
                 type="text"
                 id="nameField"
-                value={registerName}
-                onChange={(e) => setRegisterName(e.target.value)}
+                value={nameValue}
+                onChange={(e) => setNameValue(e.target.value)}
                 placeholder="Nome"
                 required
               />
               <input
                 type="email"
                 id="emailField"
-                value={registerEmail}
-                onChange={(e) => setRegisterEmail(e.target.value)}
+                value={emailValue}
+                onChange={(e) => setEmailValue(e.target.value)}
                 placeholder="Email"
                 required
                 
@@ -40,8 +63,8 @@ export default function SignIn(){
               <input
                 type="password"
                 id="passwordField"
-                value={registerPassword}
-                onChange={(e) => setRegisterPassword(e.target.value)}
+                value={passwordValue}
+                onChange={(e) => setPasswordValue(e.target.value)}
                 placeholder="Senha"
                 required
                 

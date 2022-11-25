@@ -1,12 +1,14 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
 
 export default function SignUp(){
     const [registerName, setRegisterName] = useState("");
     const [registerEmail, setRegisterEmail] = useState("");
     const [registerPassword, setRegisterPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const navigate = useNavigate();
 
     function trySignUp(e){
         e.preventDefault();
@@ -19,6 +21,17 @@ export default function SignUp(){
             email: registerEmail,
             password: registerPassword
         };
+
+        const URL = "http://localhost:5000/sign-up"
+
+        const promise = axios.post(URL, body)
+        promise.then((res) => {
+            navigate("/sign-in");
+        })
+        promise.catch((err) => {
+            console.log(err.response.data)
+            alert("Ocorreu um erro, tente novamente!");
+        })
 
     }
 

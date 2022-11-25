@@ -4,10 +4,16 @@ import Shop from "./Shop";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import NavBar from "./NavBar";
+import { useState } from "react";
+import { TokenContext } from "./TokenContext";
 
 
 function App() {
+  const [token, setToken] = useState();
+
   return (
+  <TokenContext.Provider value={{token,setToken}}>
+
   <BrowserRouter>
   <GlobalStyle/>
   <NavBar/>
@@ -18,6 +24,7 @@ function App() {
   </Routes>
   </BrowserRouter>  
   
+  </TokenContext.Provider>
     );
 }
 
