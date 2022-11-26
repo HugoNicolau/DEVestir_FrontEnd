@@ -1,7 +1,11 @@
 import pinguim from "../images/pinguimQuadrado.png"
 import styled from "styled-components"
+import { useContext } from "react"
+import { TokenContext } from "./TokenContext"
 
 export default function NavBar(){
+
+    const {token, userName} = useContext(TokenContext);
 
     return(
         <NavBarContainer>
@@ -12,9 +16,9 @@ export default function NavBar(){
             </Title>
             </TitleAndLogo>
             <UserRelated>
-            <h1>Entrar</h1>
-            <h1>Cadastrar</h1>
-            <h1>Carrinho</h1>
+                {token.length>0 ? <h1>`Olá ${userName}`</h1> : <><h1>Entrar</h1>  <h1>Cadastrar</h1>
+            
+            <h1>Carrinho</h1></>}
 
             </UserRelated>
 
