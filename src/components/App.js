@@ -13,9 +13,10 @@ import { TokenContext } from "./TokenContext";
 function App() {
   const [token, setToken] = useState("");
   const [userName, setUserName] = useState("");
+  const [cartItems, setCartItems] = useState([]);
 
   return (
-  <TokenContext.Provider value={{token,setToken, userName, setUserName}}>
+  <TokenContext.Provider value={{token,setToken, userName, setUserName, cartItems, setCartItems}}>
 
   <BrowserRouter>
   <GlobalStyle/>

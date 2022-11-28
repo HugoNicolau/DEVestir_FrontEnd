@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 
 export default function Shop(){
 
     const [items, setItems] = useState([]);
+   
+
 
     useEffect(() => {
         const URL = "http://localhost:5000/products";
@@ -21,28 +24,27 @@ export default function Shop(){
             console.log(err.response.data)
         })
         
-    },[items])
+    },[])
 
 
+   console.log(items)
+    
     return(
         <ScreenContainer>
             <MainContainer>
-                <ItemCard>
-                    <img src="https://chicorei.imgix.net/623/001ff2b2-3064-11ed-bbbf-5363f251770f.jpg?auto=compress,format&q=65&w=425&h=600&fit=crop&crop=top" alt="imagem teste"/>
-                    <h1>Camiseta O Auto da Compadecida</h1>
-                    <h2>R$ 34,90</h2>
+                {items.map((i) => {
+                    return(
+
+                <Link to={`/${i._id}`}>
+                        <ItemCard>
+                    <img src={i.image} alt={i.name}/>
+                    <h1>{i.name}</h1>
+                    <h2>R$ {Number(i.price).toFixed(2).replace(".",",")}</h2>
                 </ItemCard>
-                <ItemCard></ItemCard>
-                <ItemCard></ItemCard>
-                <ItemCard></ItemCard>
-                <ItemCard></ItemCard>
-                <ItemCard></ItemCard>
-                <ItemCard></ItemCard>
-                <ItemCard></ItemCard>
-                <ItemCard></ItemCard>
-                <ItemCard></ItemCard>
-                <ItemCard></ItemCard>
-                <ItemCard></ItemCard>
+                </Link>
+                )
+                })}
+                
             </MainContainer>
             <CartContainer>
                 <h1>Itens no carrinho</h1>
@@ -129,11 +131,13 @@ display:flex;
 flex-direction:column;
 align-items:center;
 border-radius:10px;
+box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 img{
     width:100%;
     height:77%;
     /* object-fit: cover; */
     border-radius:8px 8px 0 0;
+    
    
 }
 h1{
@@ -164,6 +168,7 @@ margin-top:10px;
 display:flex;
 align-items:center;
 border-radius:10px;
+box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
 img{
     
     height:100%;

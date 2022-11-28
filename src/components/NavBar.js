@@ -19,16 +19,17 @@ export default function NavBar(){
 
     return(
         <NavBarContainer>
-            <TitleAndLogo>
+            <TitleAndLogo onClick={()=> navigate("/")}>
             <StyledLogo src={pinguim}/>
             <Title>
                 DEVestir
             </Title>
             </TitleAndLogo>
             <UserRelated>
-                {token.length>0 ? <h1>Olá {userName}</h1> : <><h1 onClick={goToLogin}>Entrar</h1>  <h1 onClick={goToSignUp}>Cadastrar</h1>
+                {token.length>0 ? <><h1>Olá {userName}</h1> </>: <><h1 onClick={goToLogin}>Entrar</h1>  <h1 onClick={goToSignUp}>Cadastrar</h1>
             
             <h1>Carrinho</h1></>}
+            <h1>Carrinho</h1>
 
             </UserRelated>
 
@@ -72,6 +73,9 @@ font-size:40px;
 const TitleAndLogo = styled.div`
 display:flex;
 align-items:center;
+:hover{
+cursor: pointer;
+}
 `
 
 const StyledLogo = styled.img`
