@@ -8,7 +8,7 @@ import { TokenContext } from "./TokenContext";
 export default function Shop(){
 
     const [items, setItems] = useState([]);
-    const {cartItems, setCartItems, showCart} = useContext(TokenContext);
+    const {cartItems, setCartItems, showCart, setShowCart} = useContext(TokenContext);
     
 
 
@@ -39,16 +39,35 @@ export default function Shop(){
     setCartItems(newArray);
    }
 
-   
+   function backToMainScreen(){
+    if(showCart){
+        setShowCart(!showCart)
+    }
+
+   }
    
 
     return(
-        <ScreenContainer>
-            <MainContainer>
+        <ScreenContainer >
+            {showCart ? <BlockContainer onClick={backToMainScreen}>
+            {items.map((i) => {
+                    return(
+                        
+                        <>
+                        <ItemCard>
+                    <img src={i.image} alt={i.name}/>
+                    <h1>{i.name}</h1>
+                    <h2>R$ {Number(i.price).toFixed(2).replace(".",",")}</h2>
+                </ItemCard>
+                </>
+                )
+            })}
+            </BlockContainer> : 
+            <MainContainer onClick={backToMainScreen} showCart={showCart}>
                 {items.map((i) => {
                     return(
-
-                <Link to={`/${i._id}`}>
+                        
+                        <Link to={`/${i._id}`}>
                         <ItemCard>
                     <img src={i.image} alt={i.name}/>
                     <h1>{i.name}</h1>
@@ -56,9 +75,10 @@ export default function Shop(){
                 </ItemCard>
                 </Link>
                 )
-                })}
+            })}
                 
             </MainContainer>
+        }
                 {showCart && 
             <CartContainer>
                 <h1>Itens no carrinho</h1>
@@ -95,6 +115,7 @@ background-color:rebeccapurple;
 display:flex;
 align-items:flex-start;
 justify-content:center;
+
 a:link {
   text-decoration: none;
 }
@@ -113,7 +134,7 @@ a:active {
 
 `
 const MainContainer = styled.div`
-width:80%;
+width:100%;
 height:100%;
 background-color:rebeccapurple;
 display:flex;
@@ -123,8 +144,23 @@ column-gap:15px;
 row-gap:0px;
 padding:40px;
 flex-wrap:wrap;
+opacity: ${props => props.showCart ? "0.5" : "1"};
 `
+const BlockContainer = styled.div`
+width:100%;
+height:100%;
 
+background-color:black;
+opacity:0.5;
+display:flex;
+align-items:flex-start;
+justify-content:flex-start;
+column-gap:15px;
+row-gap:0px;
+padding:40px;
+flex-wrap:wrap;
+padding-bottom:80px;
+`
 
 const CartContainer = styled.div`
 

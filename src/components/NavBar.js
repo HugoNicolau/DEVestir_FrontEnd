@@ -29,10 +29,10 @@ export default function NavBar(){
             </Title>
             </TitleAndLogo>
             <UserRelated>
-                {token.length>0 ? <><h1>Olá {userName}</h1> </>: <><h1 onClick={goToLogin}>Entrar</h1>  <h1 onClick={goToSignUp}>Cadastrar</h1>
+                {token.length>0 ? <><h1>Olá {userName}</h1>  <h1 onClick={openCart}>Carrinho</h1></>: <><h1 onClick={goToLogin}>Entrar</h1>  <h1 onClick={goToSignUp}>Cadastrar</h1>
             
             <h1 onClick={openCart}>Carrinho</h1></>}
-            <h1 onClick={openCart}>Carrinho</h1>
+            
 
             </UserRelated>
 

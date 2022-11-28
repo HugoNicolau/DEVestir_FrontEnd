@@ -31,6 +31,7 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
     box-sizing:border-box;
+	background-color:rebeccapurple;
 }
 *{
 	box-sizing:border-box;
