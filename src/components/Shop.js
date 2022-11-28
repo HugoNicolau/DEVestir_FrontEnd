@@ -1,16 +1,16 @@
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { TokenContext } from "./TokenContext";
 
 
 export default function Shop(){
 
     const [items, setItems] = useState([]);
-    const {cartItems, setCartItems, showCart, setShowCart} = useContext(TokenContext);
+    const {cartItems, setCartItems, showCart, setShowCart, token} = useContext(TokenContext);
     const [totalValue, setTotalValue] = useState(0);
-
+    const navigate = useNavigate();
 
     useEffect(() => {
         const URL = "http://localhost:5000/products";
@@ -45,9 +45,35 @@ export default function Shop(){
 
    }
    let totalSum = 0;
-   const valueArray = cartItems.map((c) => totalSum+= Number(c.value));
-   console.log(valueArray);
-   console.log(totalSum, "soma total")
+   cartItems.map((c) => totalSum+= Number(c.value));
+  
+   function buyItems(){
+    if(!token){
+        navigate("/login")
+    }
+    else{
+        const URL = "http://localhost:5000/products";
+        const body = cartItems;
+
+        const config = {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+        };
+
+        const promise = axios.put(URL, body, config);
+        promise.then((res) => {
+            console.log(res.data)
+            alert("Items comprados com sucesso!")
+            setCartItems([]);
+        })
+        promise.catch((err) => {
+            console.log(err.response.data);
+        })
+    }
+   }
+
+
     return(
         <ScreenContainer >
             {showCart ? <BlockContainer onClick={backToMainScreen}>
@@ -94,13 +120,13 @@ export default function Shop(){
                     <div>
 
                     <h1>Qtd: {c.quantity}</h1>
-                    <h2>R${c.value}</h2>
+                    <h2>R${Number(c.value).toFixed(2).replace(".",",")}</h2>
                     </div>
                     <button onClick={() =>excludeItem(c)}>X</button>
                 </CartItem>
                         )
                     })}
-                <BuyButton>Realizar compra  {totalSum > 0.01 ? ` R$ ${totalSum.toFixed(2).replace(".",",")}` : ""} </BuyButton>
+                <BuyButton onClick={buyItems}>Realizar compra  {totalSum > 0.01 ? ` R$ ${totalSum.toFixed(2).replace(".",",")}` : ""} </BuyButton>
             </CartContainer>
                 }
         </ScreenContainer>

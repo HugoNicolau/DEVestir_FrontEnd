@@ -34,6 +34,7 @@ export default function Item(){
     function addToCart(){
 
         const newItem = {
+            id:product._id,
             name:product.name,
             image:product.image,
             quantity:quantity,
