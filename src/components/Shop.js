@@ -9,7 +9,7 @@ export default function Shop(){
 
     const [items, setItems] = useState([]);
     const {cartItems, setCartItems, showCart, setShowCart} = useContext(TokenContext);
-    
+    const [totalValue, setTotalValue] = useState(0);
 
 
     useEffect(() => {
@@ -20,7 +20,8 @@ export default function Shop(){
         promise.then((res) => {
           
           setItems(res.data);
-          console.log(items)
+          console.log(items);
+          
         })
         promise.catch((err) => {
             console.log(err.response.data)
@@ -29,9 +30,7 @@ export default function Shop(){
     },[])
 
 
-   console.log(items)
-    
-   console.log(cartItems, "Cart Items")
+  
 
    function excludeItem(item){
 
@@ -45,8 +44,10 @@ export default function Shop(){
     }
 
    }
-   
-
+   let totalSum = 0;
+   const valueArray = cartItems.map((c) => totalSum+= Number(c.value));
+   console.log(valueArray);
+   console.log(totalSum, "soma total")
     return(
         <ScreenContainer >
             {showCart ? <BlockContainer onClick={backToMainScreen}>
@@ -99,7 +100,7 @@ export default function Shop(){
                 </CartItem>
                         )
                     })}
-                <BuyButton>Realizar compra</BuyButton>
+                <BuyButton>Realizar compra  {totalSum > 0.01 ? ` R$ ${totalSum.toFixed(2).replace(".",",")}` : ""} </BuyButton>
             </CartContainer>
                 }
         </ScreenContainer>
