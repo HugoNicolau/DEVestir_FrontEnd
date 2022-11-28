@@ -9,11 +9,10 @@ export default function Shop(){
 
     const [items, setItems] = useState([]);
     const {cartItems, setCartItems, showCart, setShowCart, token} = useContext(TokenContext);
-    const [totalValue, setTotalValue] = useState(0);
     const navigate = useNavigate();
 
     useEffect(() => {
-        const URL = "http://localhost:5000/products";
+        const URL = "https://devestir-api.onrender.com/products";
         
     
         const promise = axios.get(URL);
@@ -56,7 +55,7 @@ export default function Shop(){
             return;
         }
 
-        const URL = "http://localhost:5000/products";
+        const URL = "https://devestir-api.onrender.com/products";
         const body = cartItems;
 
         const config = {
@@ -84,13 +83,13 @@ export default function Shop(){
             {items.map((i) => {
                     return(
                         
-                        <>
-                        <ItemCard>
+                        
+                        <ItemCard key={i._id}>
                     <img src={i.image} alt={i.name}/>
                     <h1>{i.name}</h1>
                     <h2>R$ {Number(i.price).toFixed(2).replace(".",",")}</h2>
                 </ItemCard>
-                </>
+                
                 )
             })}
             </BlockContainer> : 
@@ -98,7 +97,7 @@ export default function Shop(){
                 {items.map((i) => {
                     return(
                         
-                        <Link to={`/${i._id}`}>
+                        <Link to={`/${i._id}`} key={i._id}>
                         <ItemCard>
                     <img src={i.image} alt={i.name}/>
                     <h1>{i.name}</h1>
@@ -118,7 +117,7 @@ export default function Shop(){
                     
                     return(
                         
-                        <CartItem>
+                        <CartItem key={c._id}>
                     <img src={c.image} alt={c.name}/>
                     <h1>{c.name}</h1>
                     <div>

@@ -22,7 +22,7 @@ export default function SignUp(){
             password: registerPassword
         };
 
-        const URL = "http://localhost:5000/sign-up"
+        const URL = "https://devestir-api.onrender.com/sign-up"
 
         const promise = axios.post(URL, body)
         promise.then((res) => {

@@ -12,7 +12,7 @@ export default function AddItem(){
 
     function insertProduct(e){
         e.preventDefault();
-        const URL = "http://localhost:5000/products";
+        const URL = "https://devestir-api.onrender.com/products";
 
         const body = {
             name: nameValue,

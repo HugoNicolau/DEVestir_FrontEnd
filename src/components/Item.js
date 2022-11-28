@@ -16,12 +16,11 @@ export default function Item(){
 
     useEffect(() => {
 
-        const URL = `http://localhost:5000/products/${id}`
+        const URL = `https://devestir-api.onrender.com/products/${id}`
 
         const promise = axios.get(URL);
         promise.then((res) => {
             setProduct(res.data);
-            console.log(res.data, "Res data");
 
         })
         promise.catch((err) => {
@@ -33,6 +32,14 @@ export default function Item(){
 
     function addToCart(){
 
+        if(quantity>product.stock){
+            alert("Não temos itens o suficiente em estoque para este pedido!");
+            return;
+        }
+        if(quantity === 0){
+            alert("Não é possível pedir menos que um item")
+            return;
+        }
         const newItem = {
             id:product._id,
             name:product.name,
@@ -46,6 +53,14 @@ export default function Item(){
         alert("Item adicionado ao carrinho com sucesso");
         navigate("/");
     }
+
+    function quantityItems(){
+        if(quantity>0){
+            let newQuant = quantity - 1;
+            setQuantity(newQuant)
+        }
+    }
+
     return(
         <MainContainer>
             
@@ -60,15 +75,15 @@ export default function Item(){
                         <h3>Quantidade:</h3>
                         <ChangeQuantity>
 
-                        <button onClick={()=> setQuantity(quantity-1)}>-</button>
+                        <button onClick={quantityItems}>-</button>
                         <h3>{quantity}</h3>
                         <button onClick={()=> setQuantity(quantity+1)}>+</button>
                         </ChangeQuantity>
                         </StockDiv>
-                        <AddCartDiv>
+                        <AddCartDiv isAvailable={product.stock}>
 
                         <h2>Preço: R$ {(Number(product.price)*quantity).toFixed(2)}</h2>
-                        <button onClick={addToCart}>Adicionar ao carrinho</button>
+                        <button onClick={addToCart} disabled={product.stock<1}>{product.stock<1 ? <>Item fora de estoque</> :<>Adicionar ao carrinho</>}</button>
                         </AddCartDiv>
                         </LowerContainer>
                     </SingleItem>
@@ -186,9 +201,10 @@ flex-direction:column;
 button{
     margin-top:10px;
     width:160px;
-    background-color:#19b442;
+    background-color:#a8a8a8;
+    background-color:${props => props.isAvailable<1 ? "#a8a8a8" : "#19b442"};
 	border-radius:28px;
-	border:1px solid #18ab29;
+	border:1px solid ${props => props.isAvailable<1 ? "#a8a8a8" : "#18ab29"};
 	display:inline-block;
 	cursor:pointer;
 	color:#ffffff;
@@ -196,11 +212,13 @@ button{
 	font-size:17px;
 	padding:6px 21px;
 	text-decoration:none;
-	text-shadow:0px 1px 0px #2f6627;
+	text-shadow:0px 1px 0px ${props => props.isAvailable<1 ? "#a8a8a8" : "#2f6627"};
     :hover{
-        background-color:#3be668;
+        
+        background-color:${props => props.isAvailable<1 ? "#a8a8a8" : "#3be668"};
 
     }
 
 }
 `
+
