@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useContext } from "react";
 import { TokenContext } from "./TokenContext";
@@ -12,6 +12,7 @@ export default function Item(){
     const params = useParams()
     const {id} = params;
     const { cartItems, setCartItems } = useContext(TokenContext);
+    const navigate = useNavigate();
 
     useEffect(() => {
 
@@ -41,6 +42,8 @@ export default function Item(){
         const newArray =[...cartItems,newItem]
 
         setCartItems(newArray)
+        alert("Item adicionado ao carrinho com sucesso");
+        navigate("/");
     }
     return(
         <MainContainer>

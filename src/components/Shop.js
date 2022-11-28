@@ -75,7 +75,7 @@ export default function Shop(){
                 </CartItem>
                         )
             })}
-                
+                <BuyButton>Realizar compra</BuyButton>
             </CartContainer>
         </ScreenContainer>
     );
@@ -133,6 +133,8 @@ background-color:whitesmoke;
 display:flex;
 flex-direction:column;
 align-items:center;
+position:fixed;
+right:0;
 /* justify-content:center; */
 h1{
     color:#033249;
@@ -144,6 +146,30 @@ h1{
         margin-top:10px;
         margin-bottom:10px;
 }
+`
+const BuyButton = styled.button`
+ margin-top:10px;
+    width:160px;
+    width:19.9%;
+    background-color:#19b442;
+	border-radius:28px;
+	border:1px solid #18ab29;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	padding:6px 21px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #2f6627;
+    position:fixed;
+    right:0px;
+    bottom:30px;
+    :hover{
+        background-color:#3be668;
+
+    }
+
 `
 
 const ItemCard = styled.div`
