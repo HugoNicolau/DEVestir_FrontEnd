@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { TokenContext } from "./TokenContext";
 
 export default function SignIn(){
-    const [nameValue, setNameValue] = useState("");
+   
     const [emailValue, setEmailValue] = useState("");
     const [passwordValue, setPasswordValue] = useState("");
     const navigate = useNavigate();
@@ -16,7 +16,6 @@ export default function SignIn(){
     function trySignUp(e){
         e.preventDefault();
         const body = {
-            name:nameValue,
             email: emailValue,
             password: passwordValue,
         }
@@ -44,14 +43,7 @@ export default function SignIn(){
             </Link> */}
           <LoginContainer>
             <form onSubmit={trySignUp}>
-            <input
-                type="text"
-                id="nameField"
-                value={nameValue}
-                onChange={(e) => setNameValue(e.target.value)}
-                placeholder="Nome"
-                required
-              />
+            
               <input
                 type="email"
                 id="emailField"
