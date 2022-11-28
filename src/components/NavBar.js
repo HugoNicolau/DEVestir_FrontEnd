@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom"
 
 export default function NavBar(){
 
-    const {token, userName} = useContext(TokenContext);
+    const {token, userName, showCart, setShowCart} = useContext(TokenContext);
     const navigate = useNavigate();
 
     function goToLogin(){
@@ -17,6 +17,9 @@ export default function NavBar(){
         navigate("/cadastro")    
         }
 
+    function openCart(){
+        setShowCart(!showCart);
+    }
     return(
         <NavBarContainer>
             <TitleAndLogo onClick={()=> navigate("/")}>
@@ -28,8 +31,8 @@ export default function NavBar(){
             <UserRelated>
                 {token.length>0 ? <><h1>Olá {userName}</h1> </>: <><h1 onClick={goToLogin}>Entrar</h1>  <h1 onClick={goToSignUp}>Cadastrar</h1>
             
-            <h1>Carrinho</h1></>}
-            <h1>Carrinho</h1>
+            <h1 onClick={openCart}>Carrinho</h1></>}
+            <h1 onClick={openCart}>Carrinho</h1>
 
             </UserRelated>
 

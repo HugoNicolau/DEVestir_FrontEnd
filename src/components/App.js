@@ -14,9 +14,10 @@ function App() {
   const [token, setToken] = useState("");
   const [userName, setUserName] = useState("");
   const [cartItems, setCartItems] = useState([]);
+  const [showCart, setShowCart] = useState(false);
 
   return (
-  <TokenContext.Provider value={{token,setToken, userName, setUserName, cartItems, setCartItems}}>
+  <TokenContext.Provider value={{token,setToken, userName, setUserName, cartItems, setCartItems, showCart, setShowCart}}>
 
   <BrowserRouter>
   <GlobalStyle/>

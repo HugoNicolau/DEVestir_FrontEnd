@@ -8,8 +8,8 @@ import { TokenContext } from "./TokenContext";
 export default function Shop(){
 
     const [items, setItems] = useState([]);
-    const {cartItems, setCartItems} = useContext(TokenContext);
-   
+    const {cartItems, setCartItems, showCart} = useContext(TokenContext);
+    
 
 
     useEffect(() => {
@@ -39,6 +39,9 @@ export default function Shop(){
     setCartItems(newArray);
    }
 
+   
+   
+
     return(
         <ScreenContainer>
             <MainContainer>
@@ -56,13 +59,14 @@ export default function Shop(){
                 })}
                 
             </MainContainer>
+                {showCart && 
             <CartContainer>
                 <h1>Itens no carrinho</h1>
 
                 {cartItems.length === 0 ? <EmptyCart>Seu carrinho está vazio</EmptyCart> : cartItems.map((c) => {
-
+                    
                     return(
-
+                        
                         <CartItem>
                     <img src={c.image} alt={c.name}/>
                     <h1>{c.name}</h1>
@@ -74,9 +78,10 @@ export default function Shop(){
                     <button onClick={() =>excludeItem(c)}>X</button>
                 </CartItem>
                         )
-            })}
+                    })}
                 <BuyButton>Realizar compra</BuyButton>
             </CartContainer>
+                }
         </ScreenContainer>
     );
 }
