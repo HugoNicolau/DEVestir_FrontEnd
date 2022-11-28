@@ -23,6 +23,10 @@ export default function AddItem(){
         const promise = axios.post(URL, body);
         promise.then((res) => {
             console.log(res.data);
+            setNameValue("");
+            setImageValue("");
+            setPriceValue("");
+            setStockValue("");
 
         })
         promise.catch((err) => {

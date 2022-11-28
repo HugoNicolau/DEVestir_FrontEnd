@@ -289,6 +289,7 @@ margin-top:10px;
 display:flex;
 padding:10px;
 align-items:center;
+justify-content:space-between;
 border-radius:10px;
 box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
 position:relative;
