@@ -163,6 +163,7 @@ button{
     font-size:25px;
     :hover{
         background-color:#ff6106;
+        cursor:pointer;
 
     }
 }

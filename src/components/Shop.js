@@ -52,6 +52,10 @@ export default function Shop(){
         navigate("/login")
     }
     else{
+        if(!window.confirm("Você realmente deseja comprar?")){
+            return;
+        }
+
         const URL = "http://localhost:5000/products";
         const body = cartItems;
 
@@ -64,7 +68,7 @@ export default function Shop(){
         const promise = axios.put(URL, body, config);
         promise.then((res) => {
             console.log(res.data)
-            alert("Items comprados com sucesso!")
+            alert("Itens comprados com sucesso!")
             setCartItems([]);
         })
         promise.catch((err) => {
