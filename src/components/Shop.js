@@ -32,6 +32,13 @@ export default function Shop(){
    console.log(items)
     
    console.log(cartItems, "Cart Items")
+
+   function excludeItem(item){
+
+    const newArray = cartItems.filter((c) => c!==item)
+    setCartItems(newArray);
+   }
+
     return(
         <ScreenContainer>
             <MainContainer>
@@ -64,6 +71,7 @@ export default function Shop(){
                     <h1>Qtd: {c.quantity}</h1>
                     <h2>R${c.value}</h2>
                     </div>
+                    <button onClick={() =>excludeItem(c)}>X</button>
                 </CartItem>
                         )
             })}
@@ -186,6 +194,7 @@ padding:10px;
 align-items:center;
 border-radius:10px;
 box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+position:relative;
 img{
     
     height:100%;
@@ -211,6 +220,28 @@ h2{
         line-height: 15px;
         letter-spacing: 0em;
 }
+button{
+    font-size:15px;
+  font-family:Arial;
+  border-width:1px;
+  color:#fff;
+  border-color:#ffffff;
+  border-top-left-radius:4px;
+  border-top-right-radius:4px;
+  border-bottom-left-radius:4px;
+  border-bottom-right-radius:4px;
+  /* box-shadow:inset 0px 39px 0px -24px #e67a73; */
+  text-shadow:inset 0px 1px 0px #b23e35;
+  background:#e4685d;
+  position:absolute;
+  right:5px;
+  top:5px;
+ :hover{
+    background: #ce2519;
+    /* background-color:black; */
+ }
+}
+
 `
 
 const EmptyCart = styled.div`
