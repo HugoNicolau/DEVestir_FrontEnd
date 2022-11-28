@@ -2,10 +2,20 @@ import pinguim from "../images/pinguimQuadrado.png"
 import styled from "styled-components"
 import { useContext } from "react"
 import { TokenContext } from "./TokenContext"
+import { useNavigate } from "react-router-dom"
 
 export default function NavBar(){
 
     const {token, userName} = useContext(TokenContext);
+    const navigate = useNavigate();
+
+    function goToLogin(){
+    navigate("/login")    
+    }
+
+    function goToSignUp(){
+        navigate("/cadastro")    
+        }
 
     return(
         <NavBarContainer>
@@ -16,7 +26,7 @@ export default function NavBar(){
             </Title>
             </TitleAndLogo>
             <UserRelated>
-                {token.length>0 ? <h1>`Olá ${userName}`</h1> : <><h1>Entrar</h1>  <h1>Cadastrar</h1>
+                {token.length>0 ? <h1>`Olá ${userName}`</h1> : <><h1 onClick={goToLogin}>Entrar</h1>  <h1 onClick={goToSignUp}>Cadastrar</h1>
             
             <h1>Carrinho</h1></>}
 

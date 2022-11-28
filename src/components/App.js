@@ -4,6 +4,7 @@ import Shop from "./Shop";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import NavBar from "./NavBar";
+import Item from "./Item";
 import { useState } from "react";
 import { TokenContext } from "./TokenContext";
 
@@ -22,6 +23,7 @@ function App() {
     <Route path="/" element={<Shop/>}/>
     <Route path="/login" element={<SignIn/>}/>
     <Route path="/cadastro" element={<SignUp/>}/>
+    <Route path="/:id" element={<Item/>}/>
   </Routes>
   </BrowserRouter>  
   
