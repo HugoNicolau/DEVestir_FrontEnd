@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { TokenContext } from "./TokenContext";
 
 
 export default function Shop(){
 
     const [items, setItems] = useState([]);
+    const {cartItems, setCartItems} = useContext(TokenContext);
    
 
 
@@ -29,6 +31,7 @@ export default function Shop(){
 
    console.log(items)
     
+   console.log(cartItems, "Cart Items")
     return(
         <ScreenContainer>
             <MainContainer>
@@ -48,26 +51,23 @@ export default function Shop(){
             </MainContainer>
             <CartContainer>
                 <h1>Itens no carrinho</h1>
-            <CartItem>
-                    <img src="https://chicorei.imgix.net/623/001ff2b2-3064-11ed-bbbf-5363f251770f.jpg?auto=compress,format&q=65&w=425&h=600&fit=crop&crop=top" alt="imagem teste"/>
-                    <h1>Camiseta O Auto da Compadecida</h1>
-                    <h2>R$ 34,90</h2>
+
+                {cartItems.length === 0 ? <EmptyCart>Seu carrinho está vazio</EmptyCart> : cartItems.map((c) => {
+
+                    return(
+
+                        <CartItem>
+                    <img src={c.image} alt={c.name}/>
+                    <h1>{c.name}</h1>
+                    <div>
+
+                    <h1>Qtd: {c.quantity}</h1>
+                    <h2>R${c.value}</h2>
+                    </div>
                 </CartItem>
-                <CartItem>
-                    <img src="https://chicorei.imgix.net/623/001ff2b2-3064-11ed-bbbf-5363f251770f.jpg?auto=compress,format&q=65&w=425&h=600&fit=crop&crop=top" alt="imagem teste"/>
-                    <h1>Camiseta O Auto da Compadecida</h1>
-                    <h2>R$ 34,90</h2>
-                </CartItem>
-                <CartItem>
-                    <img src="https://chicorei.imgix.net/623/001ff2b2-3064-11ed-bbbf-5363f251770f.jpg?auto=compress,format&q=65&w=425&h=600&fit=crop&crop=top" alt="imagem teste"/>
-                    <h1>Camiseta O Auto da Compadecida</h1>
-                    <h2>R$ 34,90</h2>
-                </CartItem>
-                <CartItem>
-                    <img src="https://chicorei.imgix.net/623/001ff2b2-3064-11ed-bbbf-5363f251770f.jpg?auto=compress,format&q=65&w=425&h=600&fit=crop&crop=top" alt="imagem teste"/>
-                    <h1>Camiseta O Auto da Compadecida</h1>
-                    <h2>R$ 34,90</h2>
-                </CartItem>
+                        )
+            })}
+                
             </CartContainer>
         </ScreenContainer>
     );
@@ -82,6 +82,22 @@ background-color:rebeccapurple;
 display:flex;
 align-items:flex-start;
 justify-content:center;
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a:active {
+  text-decoration: none;
+}
+
 `
 const MainContainer = styled.div`
 width:80%;
@@ -166,6 +182,7 @@ width:19vw;
 height:100px;
 margin-top:10px;
 display:flex;
+padding:10px;
 align-items:center;
 border-radius:10px;
 box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
@@ -173,7 +190,7 @@ img{
     
     height:100%;
     /* object-fit: cover; */
-    border-radius:10px 0 0 10px;
+    /* border-radius:10px 0 0 10px; */
    
 }
 h1{
@@ -194,4 +211,18 @@ h2{
         line-height: 15px;
         letter-spacing: 0em;
 }
+`
+
+const EmptyCart = styled.div`
+width:100%;
+/* height:50%; */
+padding-top:50px;
+color:#033249;
+    font-family: 'Raleway';
+        font-size: 15px;
+        font-weight: 400;
+        letter-spacing: 0em;
+        text-align:center;
+        margin-top:10px;
+        margin-bottom:10px;
 `
